@@ -3,10 +3,10 @@ import Chamber from "./03_Chamber.jsx";
 export default function Tower({ question, answer, handleAnswer }) {
     return (
         <div className="rounded-[180px] flex flex-col justify-center items-center pt-4 bg-[#1F2833] w-[90%]">
-            <h1>Tower</h1>
+            <h1 className="text-red-800 font-bold text-1xl tracking-wide">NASA Facility</h1>
 
         {/* ข้อความจากกล่อง input */}
-        <p className="text-purple-300">
+        {/* <p className="text-purple-300">
             Message from Earth:{""}
             <span>{question
                 ? `✅ ${question}` 
@@ -21,7 +21,7 @@ export default function Tower({ question, answer, handleAnswer }) {
                 ? `✅ ${answer}` 
                 : "⌛ Waiting for a message..."}
             </span>
-        </p>
+        </p> */}
 
             <Chamber
                 question={question}

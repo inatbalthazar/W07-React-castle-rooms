@@ -3,9 +3,9 @@ import Room from "./04_Room.jsx";
 export default function Chamber({ question, answer, handleAnswer }) {
     return (
         <div className="rounded-[180px] flex flex-col justify-center items-center pt-4 bg-[#2E1A47] w-[90%]">
-            <h1>Chamber</h1>
+            <h1 className="text-red-800 font-bold text-1xl tracking-wide">Wormhole</h1>
 
-        <p className="text-purple-300">
+        {/* <p className="text-purple-300">
             Message from Earth:{""}
             <span>{question
                 ? `✅ ${question}` 
@@ -20,7 +20,7 @@ export default function Chamber({ question, answer, handleAnswer }) {
                 ? `✅ ${answer}` 
                 : "⌛ Waiting for a message..."}
             </span>
-        </p>
+        </p> */}
 
             <Room 
                 question={question}

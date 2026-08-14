@@ -3,9 +3,9 @@ import { useState } from "react";
 
 export default function App() {
   // declare React's state variable
-  const [question, setQuestion] = useState("hello-world!");
+  const [question, setQuestion] = useState("");
 
-  const [answer, setAnswer] = useState("hello-moon!");
+  const [answer, setAnswer] = useState("");
 
   // จัดการเปลี่ยนค่าคำภาม
   const handleQuestion = (e) => {
@@ -23,10 +23,19 @@ export default function App() {
     <div className="flex flex-col justify-center items-center min-h-screen bg-gray-300">
 
       {/* ข้อความจากกล่อง input */}
-      <p className="text-purple-300">
-        Message for Secret Room:{""}
-        <span>{question ? `✅ ${question}` : "⌛ Waiting for a message"}</span>
+      <p className="text-purple-800">
+        Message to Cooper:{""}
+        <span>{question ? `🛰️ ${question}` : "⌛ Waiting for a message"}</span>
       </p>
+
+              <p className="text-purple-800">
+            Message from Cooper:{""}
+            <span className="text-yellow-800">
+                {answer 
+                ? `🛰️ ${answer}` 
+                : "⌛ Waiting for a message..."}
+            </span>
+        </p>
     
       {/* กล่อง input */}
       <textarea
