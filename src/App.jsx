@@ -1,11 +1,46 @@
-import Castle from "./components/01_Castle";
 import { useState } from "react";
+import Castle from "./components/01_Castle";
+
+  // pokemon ทั้งหมดที่จะ fetch
+  const pokemonOptions = ["pikachu", "bulbasaur", "charmander", "squirtle"];
 
 export default function App() {
-  // declare React's state variable
+  // state ส่งข้อความ
   const [question, setQuestion] = useState("");
-
   const [answer, setAnswer] = useState("");
+
+  // const [pokemonName, setPokemonName] = useState("pikachu");
+  // const [pokemon, setPokemon] = useState(null);
+
+  const [starterPokemon, setStarterPokemon] = useState([]);
+  const [prisoner, setPrisoner] = useState(null);
+  const [rescuePokemon, setRescuePokemon] = useState([]);
+  const [gamePhase, setGamePhase] = useState("idle");
+  const [podProgress, setPodProgress] = useState(0);
+  const [showBuildModal, setShowBuildModal] = useState(false);
+  const [loadError, setLoadError] = useState(false);
+
+  // useEffct fetch ข้อมูล pokemon ที่ใส่ชื่อได้
+  useEffect(() => {
+    async function fetchPokemon() {
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,);
+      const data = await response.json();
+      setStarterPokemon(data);
+    }
+    fetchPokemon();
+  }, [pokemonName]);
+
+  // useEffct fetch ข้อมูล pokemon ที่ใส่ชื่อได้
+    useEffect(() => {
+    async function fetchPrisoner() {
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/seaking`,);
+      const data = await response.json();
+      setPrisoner(data);
+    }
+    fetchPrisoner();
+  }, []);
 
   // จัดการเปลี่ยนค่าคำภาม
   const handleQuestion = (e) => {
