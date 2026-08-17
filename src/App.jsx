@@ -6,25 +6,22 @@ import Castle from "./components/01_Castle";
 const pokemonOptions = ["pikachu", "bulbasaur", "charmander", "squirtle"];
 
 export default function App() {
-  // 1. State สำหรับการรับส่งข้อความระหว่างข้างนอกและ SecretRoom
+  // 1. State ตามโจทย์กำหนด
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-
-  // 2. State สำหรับระบบโปเกมอนและทีมช่วยเหลือ
-  const [pokemonName, setPokemonName] = useState("pikachu");
-  const [starterPokemon, setStarterPokemon] = useState(null); // ตัวละครนอกปราสาท
-  const [prisoner, setPrisoner] = useState(null); // ตัวละครนักโทษใน SecretRoom (Seaking)
-  const [rescuePokemon, setRescuePokemon] = useState([]); // ทีมช่วยเหลือ 4 ตัว
-
-  // 3. State สำหรับสถานะเกมและการสร้าง Escape Pod
-  // gamePhase มีสถานะ: "idle" -> "reinforcements_called" -> "pod_built" -> "pod_at_secret_room" -> "prisoner_entered_pod" -> "escaped"
+  const [starterPokemon, setStarterPokemon] = useState([]);
+  const [prisoner, setPrisoner] = useState(null);
+  const [rescuePokemon, setRescuePokemon] = useState([]);
   const [gamePhase, setGamePhase] = useState("idle");
-  const [podProgress, setPodProgress] = useState(0); // เปอร์เซ็นต์การสร้าง Pod (0 - 100%)
-  const [showBuildModal, setShowBuildModal] = useState(false); // แสดง/ซ่อน Modal โหลดการสร้าง Pod
+  const [podProgress, setPodProgress] = useState(0);
+  const [showBuildModal, setShowBuildModal] = useState(false);
   const [loadError, setLoadError] = useState(false);
 
+  // State เพิ่มเติมสำหรับเก็บชื่อโปเกมอนที่เลือกจากปุ่มกด
+  const [pokemonName, setPokemonName] = useState("pikachu");
+
   // -------------------------------------------------------------
-  // useEffect 1: ดึงข้อมูลโปเกมอนภายนอกเมื่อเลือกปุ่มเปลี่ยนชื่อ (ตามโค้ดตัวอย่างที่โจทย์กำหนด)
+  // 1. ดึงข้อมูลโปเกมอนภายนอกเมื่อเลือกเปลี่ยนชื่อ
   // -------------------------------------------------------------
   useEffect(() => {
     async function fetchPokemon() {
@@ -43,7 +40,7 @@ export default function App() {
   }, [pokemonName]);
 
   // -------------------------------------------------------------
-  // useEffect 2: ดึงข้อมูลตัวละครนักโทษ (Seaking) มาขังไว้ที่ SecretRoom เมื่อเปิดแอปขึ้นมาครั้งแรก
+  // 2. ดึงข้อมูลนักโทษ (Seaking) เมื่อเปิดแอปขึ้นมาครั้งแรก
   // -------------------------------------------------------------
   useEffect(() => {
     async function fetchPrisoner() {
@@ -69,45 +66,41 @@ export default function App() {
   };
 
   // -------------------------------------------------------------
-  // Step 3: เรียกทีมช่วยเหลือ (Fetch ข้อมูลโปเกมอนทั้ง 4 ตัวพร้อมกันด้วย Promise.all)
+  // Step 3: เรียกทีมช่วยเหลือ (ดึงข้อมูลด้วย for loop แบบเข้าใจง่าย)
   // -------------------------------------------------------------
   const handleCallReinforcements = async () => {
-    try {
-      const promises = pokemonOptions.map((name) =>
-        fetch(`https://pokeapi.co/api/v2/pokemon/${name}`).then((res) => res.json())
-      );
-      const results = await Promise.all(promises);
-      setRescuePokemon(results);
-      setGamePhase("reinforcements_called");
-    } catch (error) {
-      console.error("Error fetching rescue team:", error);
+    const list = [];
+    for (let name of pokemonOptions) {
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+      const data = await res.json();
+      list.push(data);
     }
+    setRescuePokemon(list);
+    setGamePhase("reinforcements_called");
   };
 
   // -------------------------------------------------------------
-  // Step 4: สร้าง Escape Pod พร้อมแสดง Modal และ Progress Bar เพิ่มทีละ 10%
+  // Step 4: สร้าง Escape Pod เพิ่มเปอร์เซ็นต์ทีละ 10%
   // -------------------------------------------------------------
   const handleBuildPod = () => {
     setShowBuildModal(true);
     setPodProgress(0);
 
-    const interval = setInterval(() => {
-      setPodProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setShowBuildModal(false);
-            setGamePhase("pod_built"); // สร้าง Pod เสร็จสมบูรณ์
-          }, 400);
-          return 100;
-        }
-        return prev + 10;
-      });
-    }, 250);
+    let progress = 0;
+    const timer = setInterval(() => {
+      progress += 10;
+      setPodProgress(progress);
+
+      if (progress >= 100) {
+        clearInterval(timer);
+        setShowBuildModal(false);
+        setGamePhase("pod_built");
+      }
+    }, 200);
   };
 
   // -------------------------------------------------------------
-  // Step 6: นักโทษกดเรียก Pod มายัง SecretRoom
+  // Step 6: นักโทษกดเรียก Pod
   // -------------------------------------------------------------
   const handleCallPod = () => {
     setGamePhase("pod_at_secret_room");
@@ -121,7 +114,7 @@ export default function App() {
   };
 
   // -------------------------------------------------------------
-  // Step 8 & 9: กดวาร์ปออกไปข้างนอก (Transport Outside) + จุดพลุ Confetti ยินดี
+  // Step 8 & 9: วาร์ปออกข้างนอก + จุดพลุ Confetti
   // -------------------------------------------------------------
   const handleTransportOutside = () => {
     setGamePhase("escaped");
@@ -165,7 +158,7 @@ export default function App() {
         {/* แสดงโปเกมอนภายนอกที่ถูกเลือก */}
         <div className="flex flex-col items-center mb-4">
           <p className="text-slate-400 text-xs mb-1">Pokemon outside:</p>
-          {starterPokemon ? (
+          {starterPokemon && starterPokemon.sprites ? (
             <div className="flex flex-col items-center">
               <img
                 src={starterPokemon.sprites.front_default}
