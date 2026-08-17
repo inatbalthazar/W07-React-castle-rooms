@@ -20,29 +20,29 @@ export default function App() {
 
   return (
     // card ห้อง secret room
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-300">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-[url('https://i.postimg.cc/HjDB3LGc/ezgif-com-video-to-gif-converter.gif')] bg-repeat bg-gray-300 p-4">
 
       {/* ข้อความจากกล่อง input */}
-      <p className="text-purple-800">
-        Message to Cooper:{""}
+      <p className="text-purple-800 text-center">
+        Message to Cooper:{" "}
         <span>{question ? `🛰️ ${question}` : "⌛ Waiting for a message"}</span>
       </p>
 
-              <p className="text-purple-800">
-            Message from Cooper:{""}
-            <span className="text-yellow-800">
-                {answer 
-                ? `🛰️ ${answer}` 
-                : "⌛ Waiting for a message..."}
-            </span>
-        </p>
+      <p className="text-purple-800 text-center">
+        Message from Cooper:{" "}
+        <span className="text-yellow-800">
+          {answer 
+          ? `🛰️ ${answer}` 
+          : "⌛ Waiting for a message..."}
+        </span>
+      </p>
     
       {/* กล่อง input */}
       <textarea
-      value={question} 
-      onChange={handleQuestion}
-      placeholder="Type your message here..."
-      className="bg-white text-black rounded px-2 py-1"
+        value={question} 
+        onChange={handleQuestion}
+        placeholder="Type your message here..."
+        className="bg-white text-black rounded px-2 py-1 text-center my-2"
       />
 
       <Castle question={question} answer={answer} handleAnswer={handleAnswer} />
