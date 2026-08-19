@@ -1,6 +1,6 @@
 import Castle from "./components/01_Castle";
 import { useContext } from "react";
-import { MessageContext } from "./context/messageContext/MessgeContext";
+import { MessageContext } from "./context/messageContext/MessageContext";
 
 export default function App() {
 
@@ -19,15 +19,15 @@ export default function App() {
       <p className="text-purple-800 text-center">
         Message from Cooper:{" "}
         <span className="text-yellow-800">
-          {answer 
-          ? `🛰️ ${answer}` 
+          {answer
+          ? `🛰️ ${answer}`
           : "⌛ Waiting for a message..."}
         </span>
       </p>
-    
+
       {/* กล่อง input */}
       <textarea
-        value={question} 
+        value={question}
         onChange={handleQuestion}
         placeholder="Type your message here..."
         className="bg-white text-black rounded px-2 py-1 text-center my-2"

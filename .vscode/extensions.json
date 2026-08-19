@@ -1,22 +1,15 @@
 {
   "recommendations": [
+    "enkia.tokyo-night",
+    "PKief.material-icon-theme",
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
     "dsznajder.es7-react-js-snippets",
-    "bradlc.vscode-tailwindcss",
-    "eamodio.gitlens",
-    "usernamehw.errorlens",
-    "christian-kohler.path-intellisense",
-    "formulahendry.auto-rename-tag",
-    "mikestead.dotenv",
     "christian-kohler.npm-intellisense",
-    "rangav.vscode-thunder-client",
-    "humao.rest-client",
+    "formulahendry.auto-rename-tag",
+    "formulahendry.auto-close-tag",
+    "mikestead.dotenv",
     "mongodb.mongodb-vscode",
-    "editorconfig.editorconfig",
-    "PKief.material-icon-theme",
-    "streetsidesoftware.code-spell-checker",
-    "mechatroner.rainbow-csv",
-    "ms-vscode.vscode-typescript-next"
+    "bradlc.vscode-tailwindcss"
   ]
 }

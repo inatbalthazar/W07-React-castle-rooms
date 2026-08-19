@@ -1,5 +1,5 @@
 import { Children } from "react";
-import { MessageContext } from "./MessgeContext";
+import { MessageContext } from "./MessageContext";
 import { useState } from "react";
 export const MessageProvider = ({ children }) => {
       // declare React's state variable
@@ -16,11 +16,11 @@ export const MessageProvider = ({ children }) => {
     console.log(e);
     setAnswer(e.target.value);
   }
-  
-    return  <MessageContext.Provider 
+
+    return  <MessageContext.Provider
                 value= {{ question, answer, handleQuestion, handleAnswer }}
             >
                 {children}
             </MessageContext.Provider>
-    
+
 };
