@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MessageContext } from "../context/messageContext/MessgeContext"
+import { MessageContext } from "../context/messageContext/MessageContext"
 
 export default function SecretRoom() {
 

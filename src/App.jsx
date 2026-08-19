@@ -8,7 +8,7 @@ export default function App() {
 
   return (
     // card ห้อง secret room
-    <div className="flex flex-col justify-center items-center min-h-screen bg-[url('https://i.postimg.cc/HjDB3LGc/ezgif-com-video-to-gif-converter.gif')] bg-repeat bg-gray-300 p-4">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-[url('/bg.gif')] bg-repeat bg-gray-300 p-4">
 
       {/* ข้อความจากกล่อง input */}
       <p className="text-purple-800 text-center">
