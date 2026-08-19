@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Castle from "./components/01_Castle";
 
   // pokemon ทั้งหมดที่จะ fetch
@@ -9,7 +9,7 @@ export default function App() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
-  // const [pokemonName, setPokemonName] = useState("pikachu");
+  const [pokemonName, setPokemonName] = useState("pikachu");
   // const [pokemon, setPokemon] = useState(null);
 
   const [starterPokemon, setStarterPokemon] = useState([]);
@@ -31,7 +31,8 @@ export default function App() {
     fetchPokemon();
   }, [pokemonName]);
 
-  // useEffct fetch ข้อมูล pokemon ที่ใส่ชื่อได้
+  
+  // useEffct fetch ข้อมูล pokemon ตัวนักโทษ
     useEffect(() => {
     async function fetchPrisoner() {
       const response = await fetch(
@@ -41,6 +42,20 @@ export default function App() {
     }
     fetchPrisoner();
   }, []);
+
+  // fetch ทีมช่วยเหลือมาเรียงกัน
+  const call911 = async () => {
+    const list = [];
+    for (let name of pokemonOptions) {
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${name}`,);
+      const data = await response.json();
+      list.push(data);
+    }
+    setRescuePokemon(list);
+    // setGamePhase(idle);
+  }
+
 
   // จัดการเปลี่ยนค่าคำภาม
   const handleQuestion = (e) => {
@@ -80,7 +95,14 @@ export default function App() {
         className="bg-white text-black rounded px-2 py-1 text-center my-2"
       />
 
-      <Castle question={question} answer={answer} handleAnswer={handleAnswer} />
+      <Castle 
+        question={question} 
+        answer={answer} 
+        handleAnswer={handleAnswer}
+        prisoner={prisoner}
+        rescuePokemon={rescuePokemon}
+        gamePhase={gamePhase}
+      />
     </div>
   );
 }
